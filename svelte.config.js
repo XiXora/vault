@@ -8,8 +8,8 @@ const config = {
 	preprocess: preprocess(),
 
 	kit: {
+		appDir: 'app',
 		paths: {
-			assets: 'assets',
 			base: '/vault',
 		},
 		// hydrate the <div id="svelte"> element in src/app.html
