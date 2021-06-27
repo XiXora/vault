@@ -4,11 +4,13 @@
   export async function load({ fetch }) {
     try {
       const reqNS = await fetch('https://ipfs.io/api/v0/name/resolve?arg=mm.em32.net')
+      console.log(reqNS)
       const { Path } = await reqNS.json()
 
       root.set(Path)
 
       const reqMetadata = await fetch(`https://ipfs.io/api/v0/cat?arg=${Path}/metadata.json`)
+      console.log(reqMetadata)
       const seasons = await reqMetadata.json()
 
       const data = await Promise.all(seasons.map(async season => {
@@ -65,5 +67,3 @@
   ]}
   data={recordings}
 />
-
-<pre>{JSON.stringify(recordings, null, 2)}</pre>
