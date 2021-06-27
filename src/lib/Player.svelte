@@ -16,7 +16,7 @@
     <audio
       controls
       autoplay
-      src="https://ipfs.io/api/v0/cat?arg={$root}/{$currentTrack.data_folder}/{$currentTrack.stereo_mix.vorbis}">
+      src="https://ipfs.io{$root}/{$currentTrack.data_folder}/{$currentTrack.stereo_mix.vorbis}">
       <track kind="captions" src="data:%5b%e2%99%ab music %e2%99%ab%5d" />
       Your browser does not support the
       <code>audio</code> element.
