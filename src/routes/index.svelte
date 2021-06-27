@@ -9,12 +9,12 @@
 
       root.set(Path)
 
-      const reqMetadata = await fetch(`https://ipfs.io/api/v0/cat?arg=${Path}/metadata.json`)
+      const reqMetadata = await fetch(`https://ipfs.io${Path}/metadata.json`)
       console.log(reqMetadata)
       const seasons = await reqMetadata.json()
 
       const data = await Promise.all(seasons.map(async season => {
-        const req = await fetch(`https://ipfs.io/api/v0/cat?arg=${Path}/${season.path}/metadata.json`)
+        const req = await fetch(`https://ipfs.io${Path}/${season.path}/metadata.json`)
         return {
           path: season.path,
           ...(await req.json())
