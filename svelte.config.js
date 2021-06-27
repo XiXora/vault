@@ -9,6 +9,7 @@ const config = {
 
 	kit: {
 		paths: {
+			assets: 'assets',
 			base: '/vault',
 		},
 		// hydrate the <div id="svelte"> element in src/app.html

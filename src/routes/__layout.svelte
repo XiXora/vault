@@ -5,7 +5,7 @@
 </script>
 
 <header>
-  <img src='/logo.png' alt='Logo' />
+  <img src='logo.png' alt='Logo' />
 
   <h1>Vault</h1>
 
