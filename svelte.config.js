@@ -8,6 +8,7 @@ const config = {
 	preprocess: preprocess(),
 
 	kit: {
+		appDir: 'vault',
 		// hydrate the <div id="svelte"> element in src/app.html
 		target: '#svelte',
 		adapter: adapter()

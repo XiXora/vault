@@ -2,34 +2,38 @@
   import { root } from '$lib/ipfs'
 
   export async function load({ fetch }) {
-    const reqNS = await fetch('https://ipfs.io/api/v0/name/resolve?arg=mm.em32.net')
-    const { Path } = await reqNS.json()
+    try {
+      const reqNS = await fetch('https://ipfs.io/api/v0/name/resolve?arg=mm.em32.net')
+      const { Path } = await reqNS.json()
 
-    root.set(Path)
+      root.set(Path)
 
-    const reqMetadata = await fetch(`https://ipfs.io/api/v0/cat?arg=${Path}/metadata.json`)
-    const seasons = await reqMetadata.json()
+      const reqMetadata = await fetch(`https://ipfs.io/api/v0/cat?arg=${Path}/metadata.json`)
+      const seasons = await reqMetadata.json()
 
-    const data = await Promise.all(seasons.map(async season => {
-      const req = await fetch(`https://ipfs.io/api/v0/cat?arg=${Path}/${season.path}/metadata.json`)
+      const data = await Promise.all(seasons.map(async season => {
+        const req = await fetch(`https://ipfs.io/api/v0/cat?arg=${Path}/${season.path}/metadata.json`)
+        return {
+          path: season.path,
+          ...(await req.json())
+        }
+      }))
+
       return {
-        path: season.path,
-        ...(await req.json())
-      }
-    }))
-
-    return {
-      props: {
-        recordings: data.flatMap(
-          ({title, path, recordings}) => recordings.map(
-            recording => ({
-              ...recording,
-              season: title,
-              data_folder: `${path}/${recording.data_folder}`
-            })
+        props: {
+          recordings: data.flatMap(
+            ({title, path, recordings}) => recordings.map(
+              recording => ({
+                ...recording,
+                season: title,
+                data_folder: `${path}/${recording.data_folder}`
+              })
+            )
           )
-        )
+        }
       }
+    } catch(e) {
+      console.log("Error happened:", e)
     }
   }
 </script>
