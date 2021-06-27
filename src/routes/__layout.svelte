@@ -9,10 +9,13 @@
 
   <h1>Vault</h1>
 
-  <Player />
 </header>
 
 <slot />
+
+<footer>
+  <Player />
+</footer>
 
 <style>
   header {
@@ -24,6 +27,11 @@
 
     background: var(--gray);
     border-bottom: 5px solid var(--black);
+  }
+
+  footer {
+    position: sticky;
+    bottom: 0;
   }
 
   img {
