@@ -1,6 +1,6 @@
 # BENDERFACToRY vault
 
-- Powered by [svelte-kit])(https://kit.svelte.dev/) and [IPFS](https://ipfs.io)
+- Powered by [svelte-kit](https://kit.svelte.dev/) and [IPFS](https://ipfs.io)
 - Queries the vault on IPFS for all the data
 - Renders a nice shiny UI
 - Publishes the shiny UI on IPFS
