@@ -1,0 +1,29 @@
+@import '@fontsource/maven-pro';
+@import '@fontsource/material-icons-two-tone';
+
+body {
+  --gray: #CCC7C1;
+  --gray-light: #e6e1dc;
+  --gray-dark: #a89fa1;
+  --black: #231f20;
+  
+  font-family: "Maven Pro";
+  color: var(--black);
+  background: var(--gray)
+}
+
+.icon {
+  font-family: "Material Icons Two Tone";
+}
+
+button {
+  background: var(--gray-dark);
+  border: none;
+  font-size: 1.5rem;
+  margin: 5px;
+
+  transition: background .3s ease-in-out;
+}
+button:hover, button:focus {
+  background: var(--gray);
+}
