@@ -1,16 +1,22 @@
 <script lang="ts">
-  type Column = string | {
-    label: string,
-    getter?: any,
-    style?: string,
-
-    component?: unknown,
-    props?: unknown
+  interface BaseColumn {
+    label: string
+    style?: string
   }
-
+  interface GetterColumn extends BaseColumn {
+    getter: any
+  }
+  interface ComponentColumn extends BaseColumn {
+    component: unknown,
+    props: unknown
+  }
+  type Column = string | BaseColumn | GetterColumn | ComponentColumn
 
   export let columns: Column[]
   export let data: string[][]
+
+  // Assign classes to rows based on conditions
+  export let rowClass
 </script>
 
 <table>
@@ -24,7 +30,7 @@
 
   <tbody>
     {#each data as row}
-      <tr>
+      <tr class={rowClass && Object.entries(rowClass(row)).filter(([cls, enabled]) => enabled).map(([cls]) => cls).join(' ')}>
         {#each columns as column}
           <td style={column.style}>
             {#if column.getter}
@@ -74,7 +80,7 @@
 
   @media (hover: hover){
     tbody tr {
-      transition: background .3s ease-in-out;
+      transition: background .6s ease-out;
     }
 
     tbody tr:hover {

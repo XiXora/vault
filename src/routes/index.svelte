@@ -42,7 +42,9 @@
 
 <script>
   import Table from '$lib/Table.svelte'
+  import { currentTrack } from '$lib/Player.svelte'
   import Play from '$lib/Play.svelte'
+  import Like from '$lib/Like.svelte'
 
   export let recordings = []
 </script>
@@ -63,7 +65,17 @@
       ${stereo_mix.media_info.SamplingRate/1000}Khz
       ${stereo_mix.media_info.BitDepth}bit
     `},
-    { label: 'tags', getter: ({ tags }) => tags.join(', ') }
+    { label: 'tags', getter: ({ tags }) => tags.join(', ') },
+    { label: '', component: Like, props: ({ title }) => ({ title }) },
   ]}
+  rowClass={row => ({
+    active: row === $currentTrack
+  })}
   data={recordings}
 />
+
+<style>
+  :global(table tr.active) {
+    background: var(--gray-light);
+  }
+</style>
