@@ -15,9 +15,10 @@
   {#if $currentTrack}
     <audio
       controls
-      autoplay
-      src="https://ipfs.io{$root}/{$currentTrack.data_folder}/{$currentTrack.stereo_mix.vorbis}">
+      autoplay>
       <track kind="captions" src="data:%5b%e2%99%ab music %e2%99%ab%5d" />
+      <source src="https://ipfs.io{$root}/{$currentTrack.data_folder}/{$currentTrack.stereo_mix.vorbis}" type="audio/ogg; codecs=vorbis"/>
+      <source src="https://ipfs.io{$root}/{$currentTrack.data_folder}/{$currentTrack.stereo_mix.mp3}" type="audio/mpeg"/>
       Your browser does not support the
       <code>audio</code> element.
     </audio>
