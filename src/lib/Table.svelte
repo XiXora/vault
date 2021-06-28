@@ -14,27 +14,31 @@
 </script>
 
 <table>
-  <tr class='header'>
-    {#each columns as column}
-      <th>{column.label ?? column}</th>
-    {/each}
-  </tr>
-
-  {#each data as row}
+  <thead>
     <tr>
       {#each columns as column}
-        <td style={column.style}>
-          {#if column.getter}
-            {column.getter(row)}
-          {:else if column.component}
-            <svelte:component this={column.component} {...column.props(row)} />
-          {:else}
-            {row[column]}
-          {/if}
-        </td>
+        <th>{column.label ?? column}</th>
       {/each}
     </tr>
-  {/each}
+  </thead>
+
+  <tbody>
+    {#each data as row}
+      <tr>
+        {#each columns as column}
+          <td style={column.style}>
+            {#if column.getter}
+              {column.getter(row)}
+            {:else if column.component}
+              <svelte:component this={column.component} {...column.props(row)} />
+            {:else}
+              {row[column]}
+            {/if}
+          </td>
+        {/each}
+      </tr>
+    {/each}
+  </tbody>
 </table>
 
 <style>
@@ -45,26 +49,36 @@
     margin: 8px -8px;
     box-sizing: border-box;
   }
-  .header {
+
+  thead {
     position: sticky;
     top: 0;
     background: var(--gray);
     box-shadow: 0 2px var(--black);
-  }
-  .header th {
-    padding: 8px 0;
+    text-align: left;
   }
 
   th {
+    padding: 8px 0;
     font-weight: bold;
     position: sticky;
   }
 
-  tr:not(.header) {
-    transition: background .3s ease-in-out;
+  td:first-child {
+    padding-left: env(safe-area-inset-left);
   }
 
-  tr:not(.header):hover {
-    background: var(--gray-light);
+  td:last-child {
+    padding-right: env(safe-area-inset-right);
+  }
+
+  @media (hover: hover){
+    tbody tr {
+      transition: background .3s ease-in-out;
+    }
+
+    tbody tr:hover {
+      background: var(--gray-light);
+    }
   }
 </style>

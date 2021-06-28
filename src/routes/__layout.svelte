@@ -22,7 +22,7 @@
     display: flex;
 
     height: 5rem;
-    padding: 5px;
+    padding: calc(5px + env(safe-area-inset-top)) calc(5px + env(safe-area-inset-right)) 5px calc(5px + env(safe-area-inset-left));
     margin: -8px;
 
     background: var(--gray);
@@ -32,6 +32,7 @@
   footer {
     position: sticky;
     bottom: 0;
+    padding-bottom: env(safe-area-inset-bottom);
   }
 
   img {
