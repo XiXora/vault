@@ -1,40 +1,44 @@
 <script context="module" type="ts">
-	import { derived, writable } from 'svelte/store';
+	import { writable } from 'svelte/store';
 	import { root } from '$lib/ipfs';
 
 	export const currentTrack = writable();
-
-	const mp3 = derived([currentTrack, root], ([$currentTrack, $root]) =>
-		$currentTrack
-			? `https://ipfs.io${$root}/${$currentTrack.data_folder}/${$currentTrack.stereo_mix.mp3}`
-			: ''
-	);
-
-	const vorbis = derived([currentTrack, root], ([$currentTrack, $root]) =>
-		$currentTrack
-			? `https://ipfs.io${$root}/${$currentTrack.data_folder}/${$currentTrack.stereo_mix.vorbis}`
-			: ''
-	);
 </script>
 
 <script lang="ts">
-	let audio: HTMLAudioElement;
+	const autoplay = (audio: HTMLAudioElement, currentTrack) => {
+		const play = currentTrack => {
+			if (currentTrack) {
+				audio.load();
+				audio.play();
+			}
+		}
 
-	$: if ($currentTrack) {
-		console.log($currentTrack);
-		if (audio) {
-			audio.load();
-			audio.play();
+		play(currentTrack)
+
+		return {
+			update: play
 		}
 	}
+
+	$: baseSrc = $currentTrack && `https://ipfs.io${$root}/${$currentTrack.data_folder}`
+	$: vorbis = baseSrc && $currentTrack.stereo_mix.vorbis && `${baseSrc}/${$currentTrack.stereo_mix.vorbis}`
+	$: mp3 = baseSrc && $currentTrack.stereo_mix.mp3 && `${baseSrc}/${$currentTrack.stereo_mix.mp3}`
 </script>
 
 <article>
 	{#if $currentTrack}
-		<audio bind:this={audio} controls autoplay>
+		<audio use:autoplay={$currentTrack} controls>
 			<track kind="captions" src="data:%5b%e2%99%ab music %e2%99%ab%5d" />
-			<source src={$vorbis} type="audio/ogg; codecs=vorbis" />
-			<source src={$mp3} type="audio/mpeg" />
+
+			{#if vorbis}
+				<source src={vorbis} type="audio/ogg; codecs=vorbis" />
+			{/if}
+
+			{#if mp3}
+				<source src={mp3} type="audio/mpeg" />
+			{/if}
+
 			Your browser does not support the <code>audio</code> element.
 		</audio>
 	{/if}
