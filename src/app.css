@@ -2,6 +2,7 @@
 @import '@fontsource/material-icons-two-tone';
 
 body {
+  --white: white;
   --gray: #CCC7C1;
   --gray-light: #e6e1dc;
   --gray-dark: #a89fa1;
@@ -33,9 +34,6 @@ button {
   margin: 5px;
 
   transition: background .3s ease-in-out;
-}
-button.icon {
-  
 }
 button:hover, button:focus {
   background: var(--gray);

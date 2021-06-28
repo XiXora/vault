@@ -45,8 +45,21 @@
   import { currentTrack } from '$lib/Player.svelte'
   import Play from '$lib/Play.svelte'
   import Like from '$lib/Like.svelte'
+  import Tags from '$lib/Tags.svelte'
 
   export let recordings = []
+
+  const getDuration = ({ stereo_mix }) => {
+    const seconds = (stereo_mix.media_info.Duration|0) % 60
+    const minutes = (stereo_mix.media_info.Duration / 60) |0
+
+    return (minutes ? minutes + 'm' : '') + (seconds ? seconds.toString().padStart(2, '0') + 's' : '')
+  }
+  const getMetadata = ({ stereo_mix }) => `
+    ${stereo_mix.media_info.Channels}ch
+    ${stereo_mix.media_info.SamplingRate/1000}Khz
+    ${stereo_mix.media_info.BitDepth}bit
+  `
 </script>
 
 <Table
@@ -54,18 +67,9 @@
     { label: '', component: Play, props: track => ({ track }) },
     'title',
     { label: 'stems', getter: ({ tracks }) => tracks.length },
-    { label: 'duration', getter: ({ stereo_mix }) => {
-      const seconds = (stereo_mix.media_info.Duration|0) % 60
-      const minutes = (stereo_mix.media_info.Duration / 60) |0
-
-      return `${minutes}m${seconds.toString().padStart(2, '0')}s`
-    }, style: 'text-align: right;'},
-    { label: 'metadata', getter: ({ stereo_mix }) => `
-      ${stereo_mix.media_info.Channels}ch
-      ${stereo_mix.media_info.SamplingRate/1000}Khz
-      ${stereo_mix.media_info.BitDepth}bit
-    `},
-    { label: 'tags', getter: ({ tags }) => tags.join(', ') },
+    { label: 'duration', getter: getDuration, style: 'text-align: right;'},
+    { label: 'metadata', getter: getMetadata},
+    { label: 'tags', component: Tags, props: ({ tags }) => ({ tags }) },
     { label: '', component: Like, props: ({ title }) => ({ title }) },
   ]}
   rowClass={row => ({
