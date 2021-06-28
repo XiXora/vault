@@ -9,9 +9,6 @@ const config = {
 
 	kit: {
 		appDir: 'app',
-		paths: {
-			base: '/vault',
-		},
 		// hydrate the <div id="svelte"> element in src/app.html
 		target: '#svelte',
 		adapter: adapter()
