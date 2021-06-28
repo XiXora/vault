@@ -38,7 +38,9 @@
 
     transition: filter .3s ease-out;
   }
-  :global(tr:hover) button {
+  :global(tr:hover) button, 
+  :global(tr:focus) button {
+    background: none;
     filter: var(--icon-filter-gray-dark);
   }
 
