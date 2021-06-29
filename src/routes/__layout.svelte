@@ -4,11 +4,14 @@
 	import '../app.css';
 </script>
 
+<svelte:head>
+  <title>Vault</title>
+</svelte:head>
+
 <header>
   <img src='logo.png' alt='Logo' />
 
   <h1>Vault</h1>
-
 </header>
 
 <slot />
