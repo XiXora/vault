@@ -1,50 +1,51 @@
 <script lang="ts">
-  import Player from '$lib/Player.svelte'
-  
+	import Player from '$lib/Player.svelte';
+
 	import '../app.css';
 </script>
 
 <svelte:head>
-  <title>Vault</title>
+	<title>Vault</title>
 </svelte:head>
 
 <header>
-  <img src='logo.png' alt='Logo' />
+	<img src="logo.png" alt="Logo" />
 
-  <h1>Vault</h1>
+	<h1>Vault</h1>
 </header>
 
 <slot />
 
 <footer>
-  <Player />
+	<Player />
 </footer>
 
 <style>
-  header {
-    display: flex;
+	header {
+		display: flex;
 
-    height: 5rem;
-    padding: calc(5px + env(safe-area-inset-top)) calc(5px + env(safe-area-inset-right)) 5px calc(5px + env(safe-area-inset-left));
-    margin: -8px;
+		height: 5rem;
+		padding: calc(5px + env(safe-area-inset-top)) calc(5px + env(safe-area-inset-right)) 5px
+			calc(5px + env(safe-area-inset-left));
+		margin: -8px;
 
-    background: var(--gray);
-    border-bottom: 5px solid var(--black);
-  }
+		background: var(--gray);
+		border-bottom: 5px solid var(--black);
+	}
 
-  footer {
-    position: sticky;
-    bottom: 0;
-    padding-bottom: env(safe-area-inset-bottom);
-  }
+	footer {
+		position: sticky;
+		bottom: 0;
+		padding-bottom: env(safe-area-inset-bottom);
+	}
 
-  img {
-    height: 5rem;
-  }
+	img {
+		height: 5rem;
+	}
 
-  h1 {
-    margin: 0;
-    font-size: 4rem;
-    margin-left: 1rem;
-  }
+	h1 {
+		margin: 0;
+		font-size: 4rem;
+		margin-left: 1rem;
+	}
 </style>
