@@ -1,36 +1,14 @@
 <script context="module">
-  import { setRoot } from '$lib/ipfs'
+  import { root } from '$lib/ipfs'
 
   export async function load({ fetch }) {
-    try {
-      const root = await setRoot('https://ipfs.io/api/v0/name/resolve?arg=mm.em32.net')
-
-      const reqMetadata = await fetch(`https://ipfs.io${root}/metadata.json`)
-      const seasons = await reqMetadata.json()
-
-      const data = await Promise.all(seasons.map(async season => {
-        const req = await fetch(`https://ipfs.io${root}/${season.path}/metadata.json`)
-        return {
-          path: season.path,
-          ...(await req.json())
-        }
-      }))
-
-      return {
-        props: {
-          recordings: data.flatMap(
-            ({title, path, recordings}) => recordings.map(
-              recording => ({
-                ...recording,
-                season: title,
-                data_folder: `${path}/${recording.data_folder}`
-              })
-            )
-          )
-        }
+    const req = await fetch('/tracks.json')
+    const { recordings, root: _root } = await req.json()
+    root.set(_root)
+    return {
+      props: {
+        recordings
       }
-    } catch(e) {
-      console.log("Error happened:", e)
     }
   }
 </script>
