@@ -6,25 +6,26 @@
 
 <script lang="ts">
 	import { root } from '$lib/ipfs';
-	
+
 	const autoplay = (audio: HTMLAudioElement, currentTrack) => {
-		const play = currentTrack => {
+		const play = (currentTrack) => {
 			if (currentTrack) {
 				audio.load();
 				audio.play();
 			}
-		}
+		};
 
-		play(currentTrack)
+		play(currentTrack);
 
 		return {
 			update: play
-		}
-	}
+		};
+	};
 
-	$: baseSrc = $currentTrack && `https://ipfs.io${$root}/${$currentTrack.data_folder}`
-	$: vorbis = baseSrc && $currentTrack.stereo_mix.vorbis && `${baseSrc}/${$currentTrack.stereo_mix.vorbis}`
-	$: mp3 = baseSrc && $currentTrack.stereo_mix.mp3 && `${baseSrc}/${$currentTrack.stereo_mix.mp3}`
+	$: baseSrc = $currentTrack && `https://ipfs.io${$root}/${$currentTrack.data_folder}`;
+	$: vorbis =
+		baseSrc && $currentTrack.stereo_mix.vorbis && `${baseSrc}/${$currentTrack.stereo_mix.vorbis}`;
+	$: mp3 = baseSrc && $currentTrack.stereo_mix.mp3 && `${baseSrc}/${$currentTrack.stereo_mix.mp3}`;
 </script>
 
 <article>
