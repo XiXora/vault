@@ -4,7 +4,7 @@
   export let track
 </script>
 
-<button class:playing={$currentTrack === track} class='icon' on:click={() => $currentTrack = track}>
+<button class:playing={$currentTrack === track} class='icon' on:click|stopPropagation={() => $currentTrack = track}>
   play_arrow
 </button>
 

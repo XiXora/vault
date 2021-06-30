@@ -1,20 +1,15 @@
 <script context="module">
-  import { root } from '$lib/ipfs'
+  import { setRoot } from '$lib/ipfs'
 
   export async function load({ fetch }) {
     try {
-      const reqNS = await fetch('https://ipfs.io/api/v0/name/resolve?arg=mm.em32.net')
-      console.log(reqNS)
-      const { Path } = await reqNS.json()
+      const root = await setRoot('https://ipfs.io/api/v0/name/resolve?arg=mm.em32.net')
 
-      root.set(Path)
-
-      const reqMetadata = await fetch(`https://ipfs.io${Path}/metadata.json`)
-      console.log(reqMetadata)
+      const reqMetadata = await fetch(`https://ipfs.io${root}/metadata.json`)
       const seasons = await reqMetadata.json()
 
       const data = await Promise.all(seasons.map(async season => {
-        const req = await fetch(`https://ipfs.io${Path}/${season.path}/metadata.json`)
+        const req = await fetch(`https://ipfs.io${root}/${season.path}/metadata.json`)
         return {
           path: season.path,
           ...(await req.json())
@@ -41,20 +36,13 @@
 </script>
 
 <script>
-  import Table from '$lib/Table.svelte'
+  import { goto } from '$app/navigation';
+  import { Table, Play, Like, Tags, Link } from '$lib/table'
   import { currentTrack } from '$lib/Player.svelte'
-  import Play from '$lib/Play.svelte'
-  import Like from '$lib/Like.svelte'
-  import Tags from '$lib/Tags.svelte'
+  import { formatDuration } from '$lib/util'
 
   export let recordings = []
 
-  const getDuration = ({ stereo_mix }) => {
-    const seconds = (stereo_mix.media_info.Duration|0) % 60
-    const minutes = (stereo_mix.media_info.Duration / 60) |0
-
-    return (minutes ? minutes + 'm' : '') + (seconds ? seconds.toString().padStart(2, '0') + 's' : '')
-  }
   const getMetadata = ({ stereo_mix }) => `
     ${stereo_mix.media_info.Channels}ch
     ${stereo_mix.media_info.SamplingRate/1000}Khz
@@ -63,11 +51,12 @@
 </script>
 
 <Table
+  on:click={({ detail: { data_folder } }) => goto(data_folder)}
   columns={[
     { label: '', component: Play, props: track => ({ track }) },
-    'title',
+    { label: 'title', component: Link, props: ({ title, data_folder }) => ({ href:data_folder, text: title }) },
     { label: 'stems', getter: ({ tracks }) => tracks.length },
-    { label: 'duration', getter: getDuration, style: 'text-align: right;'},
+    { label: 'duration', getter: ({ stereo_mix }) => formatDuration(stereo_mix.media_info.Duration), style: 'text-align: right;'},
     { label: 'metadata', getter: getMetadata},
     { label: 'tags', component: Tags, props: ({ tags }) => ({ tags }) },
     { label: '', component: Like, props: ({ title }) => ({ title }) },

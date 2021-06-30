@@ -9,8 +9,10 @@
 </svelte:head>
 
 <header>
-  <img src='logo.png' alt='Logo' />
-
+  <a href='/'>
+    <img src='/logo.png' alt='Logo' />
+  </a>
+  
   <h1>Vault</h1>
 </header>
 

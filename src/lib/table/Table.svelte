@@ -1,4 +1,8 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte';
+
+	const dispatch = createEventDispatcher();
+
   interface BaseColumn {
     label: string
     style?: string
@@ -16,7 +20,7 @@
   export let data: string[][]
 
   // Assign classes to rows based on conditions
-  export let rowClass
+  export let rowClass = null
 </script>
 
 <table>
@@ -30,7 +34,10 @@
 
   <tbody>
     {#each data as row}
-      <tr class={rowClass && Object.entries(rowClass(row)).filter(([cls, enabled]) => enabled).map(([cls]) => cls).join(' ')}>
+      <tr
+        on:click={() => dispatch('click', row)}
+        class={rowClass && Object.entries(rowClass(row)).filter(([cls, enabled]) => enabled).map(([cls]) => cls).join(' ')}
+      >
         {#each columns as column}
           <td style={column.style}>
             {#if column.getter}

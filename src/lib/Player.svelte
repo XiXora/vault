@@ -1,11 +1,12 @@
 <script context="module" type="ts">
 	import { writable } from 'svelte/store';
-	import { root } from '$lib/ipfs';
 
 	export const currentTrack = writable();
 </script>
 
 <script lang="ts">
+	import { root } from '$lib/ipfs';
+	
 	const autoplay = (audio: HTMLAudioElement, currentTrack) => {
 		const play = currentTrack => {
 			if (currentTrack) {

@@ -9,6 +9,9 @@ body {
   --black: #231f20;
   --red: #db2653;
   --red-light: #db708b;
+  --blue: #0a2e73;
+  --blue-light: #7e9edb;
+  --blue-dark: #041537;
 
   /* Converted from color to filter using: https://codepen.io/sosuke/pen/Pjoqqp */
   --icon-filter-gray: invert(98%) sepia(7%) saturate(457%) hue-rotate(317deg) brightness(85%) contrast(86%);
@@ -21,6 +24,10 @@ body {
   font-family: "Maven Pro";
   color: var(--black);
   background: var(--gray);
+}
+
+a {
+  color: var(--blue);
 }
 
 .icon {

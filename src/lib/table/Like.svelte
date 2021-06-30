@@ -27,7 +27,7 @@
   }
 </script>
 
-<button class:like class='icon' on:click={toggle}>
+<button class:like class='icon' on:click|stopPropagation={toggle}>
   {like ? 'favorite' : 'favorite_border'}
 </button>
 
