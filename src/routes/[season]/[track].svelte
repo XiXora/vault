@@ -1,12 +1,10 @@
 <script lang='ts' context="module">
-  import { root } from '$lib/ipfs'
 
   export async function load({ fetch, page }) {
     const { season, track } = page.params
 
     const req = await fetch('/tracks.json')
-    const { recordings, root: _root } = await req.json()
-    root.set(_root)
+    const recordings = await req.json()
 
     const path = `${season}/${track}`
     const recording = recordings.find(({ data_folder }) => data_folder === path)
@@ -14,7 +12,7 @@
     return {
       props: {
         ...recording,
-        path: `https://ipfs.io${_root}/${recording.data_folder}`, 
+        path: `https://ipfs.benderfactory.com/${recording.data_folder}`, 
       }
     }
   }
