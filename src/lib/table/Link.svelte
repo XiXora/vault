@@ -1,7 +1,6 @@
-
 <script lang="ts">
-  export let href
-  export let text
+	export let href;
+	export let text;
 </script>
 
-<a {href} on:click|stopPropagation={() => {}}>{text}</a>
+<a {href} on:click|stopPropagation={() => false}>{text}</a>

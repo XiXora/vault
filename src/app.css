@@ -2,46 +2,53 @@
 @import '@fontsource/material-icons-two-tone';
 
 body {
-  --white: white;
-  --gray: #CCC7C1;
-  --gray-light: #e6e1dc;
-  --gray-dark: #a89fa1;
-  --black: #231f20;
-  --red: #db2653;
-  --red-light: #db708b;
-  --blue: #0a2e73;
-  --blue-light: #7e9edb;
-  --blue-dark: #041537;
+	--white: white;
+	--gray: #ccc7c1;
+	--gray-light: #e6e1dc;
+	--gray-dark: #a89fa1;
+	--black: #231f20;
+	--red: #db2653;
+	--red-light: #db708b;
+	--blue: #0a2e73;
+	--blue-light: #7e9edb;
+	--blue-dark: #041537;
 
-  /* Converted from color to filter using: https://codepen.io/sosuke/pen/Pjoqqp */
-  --icon-filter-gray: invert(98%) sepia(7%) saturate(457%) hue-rotate(317deg) brightness(85%) contrast(86%);
-  --icon-filter-gray-light: invert(99%) sepia(2%) saturate(965%) hue-rotate(317deg) brightness(94%) contrast(91%);
-  --icon-filter-gray-dark: invert(73%) sepia(12%) saturate(134%) hue-rotate(296deg) brightness(88%) contrast(83%);
-  --icon-filter-red: invert(23%) sepia(94%) saturate(2287%) hue-rotate(328deg) brightness(88%) contrast(95%);
-  --icon-filter-red-light: invert(58%) sepia(10%) saturate(2779%) hue-rotate(297deg) brightness(95%) contrast(79%);
-  --icon-filter-black: invert(7%) sepia(1%) saturate(4543%) hue-rotate(271deg) brightness(97%) contrast(87%);
-  
-  font-family: "Maven Pro";
-  color: var(--black);
-  background: var(--gray);
+	/* Converted from color to filter using: https://codepen.io/sosuke/pen/Pjoqqp */
+	--icon-filter-gray: invert(98%) sepia(7%) saturate(457%) hue-rotate(317deg) brightness(85%)
+		contrast(86%);
+	--icon-filter-gray-light: invert(99%) sepia(2%) saturate(965%) hue-rotate(317deg) brightness(94%)
+		contrast(91%);
+	--icon-filter-gray-dark: invert(73%) sepia(12%) saturate(134%) hue-rotate(296deg) brightness(88%)
+		contrast(83%);
+	--icon-filter-red: invert(23%) sepia(94%) saturate(2287%) hue-rotate(328deg) brightness(88%)
+		contrast(95%);
+	--icon-filter-red-light: invert(58%) sepia(10%) saturate(2779%) hue-rotate(297deg) brightness(95%)
+		contrast(79%);
+	--icon-filter-black: invert(7%) sepia(1%) saturate(4543%) hue-rotate(271deg) brightness(97%)
+		contrast(87%);
+
+	font-family: 'Maven Pro';
+	color: var(--black);
+	background: var(--gray);
 }
 
 a {
-  color: var(--blue);
+	color: var(--blue);
 }
 
 .icon {
-  font-family: "Material Icons Two Tone";
+	font-family: 'Material Icons Two Tone';
 }
 
 button {
-  background: var(--gray-dark);
-  border: none;
-  font-size: 1.5rem;
-  margin: 5px;
+	background: var(--gray-dark);
+	border: none;
+	font-size: 1.5rem;
+	margin: 5px;
 
-  transition: background .3s ease-in-out;
+	transition: background 0.3s ease-in-out;
 }
-button:hover, button:focus {
-  background: var(--gray);
+button:hover,
+button:focus {
+	background: var(--gray);
 }
