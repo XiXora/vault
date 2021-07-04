@@ -1,13 +1,9 @@
 <script context="module">
-	import { root } from '$lib/ipfs';
-
 	export async function load({ fetch }) {
 		const req = await fetch('/tracks.json');
-		const { recordings, root: _root } = await req.json();
-		root.set(_root);
 		return {
 			props: {
-				recordings
+				recordings: await req.json()
 			}
 		};
 	}

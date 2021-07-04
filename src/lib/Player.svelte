@@ -17,8 +17,6 @@
 </script>
 
 <script lang="ts">
-	import { root } from '$lib/ipfs';
-
 	let time = 0;
 	let maxTime = 0;
 	let formattedElapsed = '-';
@@ -222,7 +220,7 @@
 		console.log($currentTrack);
 	}
 
-	$: baseSrc = $currentTrack && `https://ipfs.io${$root}/${$currentTrack.data_folder}`;
+	$: baseSrc = $currentTrack && `https://ipfs.benderfactory.com/${$currentTrack.data_folder}`;
 	$: vorbis =
 		baseSrc && $currentTrack.stereo_mix.vorbis && `${baseSrc}/${$currentTrack.stereo_mix.vorbis}`;
 	$: mp3 = baseSrc && $currentTrack.stereo_mix.mp3 && `${baseSrc}/${$currentTrack.stereo_mix.mp3}`;

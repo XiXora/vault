@@ -26,13 +26,11 @@ const fetchIPFS = async (url, { retries = 3, retryTime = 1000, ...opts } = {}) =
  * @type {import('@sveltejs/kit').RequestHandler}
  */
 export async function get({ params }) {
-	const { Path } = await fetchIPFS('https://ipfs.io/api/v0/name/resolve?arg=mm.em32.net');
-
-	const seasons = await fetchIPFS(`https://ipfs.io${Path}/metadata.json`);
+	const seasons = await fetchIPFS(`https://ipfs.benderfactory.com/metadata.json`);
 
 	const data = await Promise.all(
 		seasons.map(async (season) => {
-			const data = await fetchIPFS(`https://ipfs.io${Path}/${season.path}/metadata.json`);
+			const data = await fetchIPFS(`https://ipfs.benderfactory.com/${season.path}/metadata.json`);
 			return {
 				path: season.path,
 				...data
@@ -44,15 +42,12 @@ export async function get({ params }) {
 		headers: {
 			'Cache-Control': 'max-age=86400'
 		},
-		body: {
-			root: Path,
-			recordings: data.flatMap(({ title, path, recordings }) =>
-				recordings.map((recording) => ({
-					...recording,
-					season: title,
-					data_folder: `${path}/${recording.data_folder}`
-				}))
-			)
-		}
+		body: data.flatMap(({ title, path, recordings }) =>
+			recordings.map((recording) => ({
+				...recording,
+				season: title,
+				data_folder: `${path}/${recording.data_folder}`
+			}))
+		)
 	};
 }
