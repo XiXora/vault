@@ -63,7 +63,6 @@
 		border-collapse: collapse;
 		width: 100%;
 		width: calc(100% + 16px);
-		margin: 8px -8px;
 		box-sizing: border-box;
 	}
 
